@@ -1,11 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:demo/model/CategoryModel.dart';
 import 'package:demo/model/productModel.dart';
+import 'package:demo/widget/bestSellerWidget.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,35 +132,22 @@ class HomePage extends StatelessWidget {
                   ),
                 ],
               ),
-             SizedBox(height: 20),
-             SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  for(var i=0;i<listproduct.length;i++)
-                  Container(
-                    width: 200,
-                    height: 320,
-                    margin: EdgeInsets.only(right: 10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12)
-                    ),
-                    child: Column(
-                      children: [
-                        SizedBox(height: 10,),
-                        Text(listproduct[i].name,style: TextStyle(fontSize: 20,fontWeight: FontWeight.w600),),
-                        Text("\$${listproduct[i].sizeOption[0]["price"]}",style: TextStyle(fontSize: 18,color: Colors.grey),),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-             )
+              SizedBox(height: 20),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    for (var i = 0; i < listproduct.length; i++)
+                      BestSeller(context,listproduct[i])
+                  ],
+                ),
+              )
             ],
           ),
         ),
       ),
     );
   }
+
+  
 }
