@@ -65,22 +65,31 @@ Widget bottomNav(BuildContext context, int currentIndex) {
     items: [
       BottomNavigationBarItem(
         icon: Container(
-          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-
-          color: isSelected == 0 ? Colors.lightGreen : Colors.grey.shade100,
-          child: Icon(Icons.home),
+          //margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          width: 100,
+          height: 40,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            color: isSelected == 0 ? Colors.lightGreen.shade300 :Colors.transparent,
+          ),
+          child: Icon(Icons.home,color: isSelected == 0 ? Colors.white: Colors.grey.shade400,),
         ),
         label: "",
-        // backgroundColor: isSelected==0 ? Colors.amber : Colors.grey.shade400,
+        //backgroundColor: isSelected==2 ? Colors.amber : Colors.grey.shade400,
       ),
       BottomNavigationBarItem(
         icon: Container(
-          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          color: isSelected == 1 ? Colors.lightGreen : Colors.grey.shade100,
-          child: Icon(Icons.favorite),
+          //margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          width: 100,
+          height: 40,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            color: isSelected == 1 ? Colors.lightGreen.shade300 :Colors.transparent,
+          ),
+          child: Icon(Icons.favorite,color: isSelected == 1 ? Colors.white: Colors.grey.shade400,),
         ),
         label: "",
-        //backgroundColor: isSelected==1 ? Colors.amber : Colors.grey.shade400,
+        //backgroundColor: isSelected==2 ? Colors.amber : Colors.grey.shade400,
       ),
       BottomNavigationBarItem(
         icon: Container(
@@ -110,12 +119,17 @@ Widget bottomNav(BuildContext context, int currentIndex) {
       ),
       BottomNavigationBarItem(
         icon: Container(
-          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-
-          color: isSelected == 4 ? Colors.lightGreen : Colors.grey.shade100,
-          child: Icon(Icons.person),
+          //margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          width: 100,
+          height: 40,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            color: isSelected == 4 ? Colors.lightGreen.shade300 :Colors.transparent,
+          ),
+          child: Icon(Icons.person,color: isSelected == 4 ? Colors.white: Colors.grey.shade400,),
         ),
         label: "",
+        //backgroundColor: isSelected==2 ? Colors.amber : Colors.grey.shade400,
       ),
     ],
   );
