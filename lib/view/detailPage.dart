@@ -13,13 +13,15 @@ class Detailpage extends StatefulWidget {
 
 class _DetailpageState extends State<Detailpage> {
   var favorite = false;
-  var selectedInex;
+  
   List<int> selectedIngredients=[];
   
   @override
   Widget build(BuildContext context) {
     final productID=widget.productmodels.id;
     final productIngredeint=listProductAdd.where((ingredeint) => productID==ingredeint.productID,).toList();
+
+    
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -95,6 +97,7 @@ class _DetailpageState extends State<Detailpage> {
 
               GridView.builder(
                 shrinkWrap: true,
+               // scrollDirection: Axis.horizontal,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   mainAxisSpacing: 10,
@@ -105,11 +108,11 @@ class _DetailpageState extends State<Detailpage> {
                   return GestureDetector(
                     onTap: () {
                       setState(() {
-                        selectedInex = index;
+                        widget.productmodels.selectedInex = index;
                       });
                     },
                     child:
-                        (selectedInex == index)
+                        (widget.productmodels.selectedInex == index)
                             ? isSelect(
                               context,
                               widget.productmodels,
@@ -145,29 +148,34 @@ class _DetailpageState extends State<Detailpage> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: productIngredeint.map((ingredeint){
-                    return ListTile(
-                          tileColor: Colors.white,
-                          leading: CircleAvatar(
-                            backgroundImage: AssetImage(ingredeint.img,),
-                            radius: 50,
+                    return Container(
+                      margin: EdgeInsets.symmetric(vertical: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(14)
+                      ),
+                      child: ListTile(
+                           // tileColor: Colors.white,
+                            leading: CircleAvatar(
+                              backgroundImage: AssetImage(ingredeint.img,),
+                              radius: 50,
+                            ),
+                            title: Text(ingredeint.name),
+                            subtitle: Text("${ingredeint.weight} - \$${ingredeint.price.toStringAsFixed(2)}"),
+                            trailing: Checkbox(
+                            value: selectedIngredients.contains(ingredeint.id),
+                            onChanged: (value) {
+                              setState(() {
+                                if (value == true) {
+                                  selectedIngredients.add(ingredeint.id);
+                                  
+                                } else {
+                                  selectedIngredients.remove(ingredeint.id);
+                                }
+                              });
+                            },
                           ),
-                          title: Text(ingredeint.name),
-                          subtitle: Text("${ingredeint.weight} - \$${ingredeint.price.toStringAsFixed(2)}"),
-                          trailing: Checkbox(
-                          value: selectedIngredients.contains(ingredeint.id),
-                          onChanged: (value) {
-                            setState(() {
-                              if (value == true) {
-                                selectedIngredients.add(ingredeint.id);
-                                
-                              } else {
-                                selectedIngredients.remove(ingredeint.id);
-                               
-
-                              }
-                            });
-                          },
-                        ),
+                      ),
                     );
                 }).toList()
               )
@@ -175,6 +183,73 @@ class _DetailpageState extends State<Detailpage> {
           ),
         ),
       ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.transparent,
+        child: Row(
+          children: [
+            Container(
+              width: 120,
+              height: 60,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(30),
+                border: Border.all(width: 2,color: Colors.green)
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(width: 10,),
+                  InkWell(
+                    onTap: (){
+                      setState(() {
+                        (widget.productmodels.counter>1)? widget.productmodels.counter-- : widget.productmodels.counter=widget.productmodels.counter;
+                      });
+                    },
+                    child: Icon(Icons.delete_outlined,color:  Colors.grey)),
+                  Text("${widget.productmodels.counter}",style: TextStyle(fontWeight: FontWeight.w600),),
+                  InkWell(
+                    onTap: (){
+                      setState(() {
+                        (widget.productmodels.counter<20)? widget.productmodels.counter++ : widget.productmodels.counter=widget.productmodels.counter;
+                      });
+                    },
+                    child: Icon(Icons.add,color: Colors.grey,)),
+                  SizedBox(width: 10,),
+
+                ],
+              ),
+            ),
+            SizedBox(width: 10,),
+            addTocart(context, widget.productmodels)
+          ],
+        ),
+      )
     );
+  }
+  Widget addTocart(BuildContext context,Productmodel product){
+    int selectIndex=product.selectedInex==-1? 0 :product.selectedInex;
+    double price=product.sizeOption[selectIndex]["price"];
+    int qty=product.counter;
+    return Container(
+              width: 280,
+              height: 60,
+              decoration: BoxDecoration(
+                color: Colors.green,
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10,right: 50),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(width: 10,),
+                    Text("Add to cart -",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18,color: Colors.white),),
+                    Text("\$${price*qty}",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18,color: Colors.white),),
+                  ],
+                ),
+              ),
+            );
+
+    
   }
 }

@@ -14,5 +14,8 @@ class Productaddmodel {
 List<Productaddmodel> listProductAdd =[
   Productaddmodel(id: 1, productID: 1, name: "chicken", weight: 4.5, price: 2.3, img: "assets/chicken.webp"),
   Productaddmodel(id: 2, productID: 1, name: "chheese", weight: 6.5, price: 4.3, img: "assets/chicken.webp"),
+  Productaddmodel(id: 3, productID: 1, name: "chheese", weight: 6.5, price: 4.3, img: "assets/chicken.webp"),
+  Productaddmodel(id: 4, productID: 1, name: "chheese", weight: 6.5, price: 4.3, img: "assets/chicken.webp"),
+  Productaddmodel(id: 5, productID: 1, name: "chheese", weight: 6.5, price: 4.3, img: "assets/chicken.webp"),
   Productaddmodel(id: 3, productID: 2, name: "chheese", weight: 6.5, price: 4.3, img: "assets/chicken.webp"),
 ];
