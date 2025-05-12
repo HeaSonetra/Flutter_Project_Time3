@@ -1,10 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:demo/model/CategoryModel.dart';
 import 'package:demo/model/productModel.dart';
-import 'package:demo/view/confirmationPage.dart';
-import 'package:demo/view/favoritePage.dart';
-import 'package:demo/view/personPage.dart';
-import 'package:demo/view/shoppingPage.dart';
 import 'package:demo/widget/bestSellerWidget.dart';
 import 'package:demo/widget/bottomNavWidget.dart';
 import 'package:flutter/material.dart';

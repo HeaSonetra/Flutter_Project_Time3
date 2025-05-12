@@ -9,6 +9,7 @@ class Productmodel {
   final String decription;
   final double rate;
   int selectedInex;
+  
 
   Productmodel({
     required this.id,
@@ -22,6 +23,20 @@ class Productmodel {
     required this.rate,
     required this.selectedInex,
   });
+  Productmodel copy(){
+    return Productmodel(
+      id: id, 
+      name: name, 
+      img: img, 
+      sizeOption: sizeOption, 
+      counter: counter, 
+      calories: calories, 
+      distance: distance, 
+      decription: decription, 
+      rate: rate, 
+      selectedInex: selectedInex
+    );
+  }
 }
 
 List<Productmodel> listproduct = [

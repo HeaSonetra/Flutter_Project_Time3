@@ -1,5 +1,6 @@
 import 'package:demo/model/productAddModel.dart';
 import 'package:demo/model/productModel.dart';
+import 'package:demo/widget/addTocart.dart';
 import 'package:demo/widget/isNotSelectWidget.dart';
 import 'package:demo/widget/isSelectedWidget.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 class Detailpage extends StatefulWidget {
   const Detailpage({super.key, required this.productmodels});
   final Productmodel productmodels;
+  
   @override
   State<Detailpage> createState() => _DetailpageState();
 }
@@ -20,7 +22,28 @@ class _DetailpageState extends State<Detailpage> {
   Widget build(BuildContext context) {
     final productID=widget.productmodels.id;
     final productIngredeint=listProductAdd.where((ingredeint) => productID==ingredeint.productID,).toList();
+    
+    
 
+    double totalpriceAdd(){
+      double totalprice=0;
+      for(var j=0;j<selectedIngredients.length;j++){
+            int id=selectedIngredients[j];
+            for(var i=0;i<listProductAdd.length;i++){
+              totalprice+=(id==listProductAdd[i].id)?listProductAdd[i].price : 0;
+            }
+      }
+      
+      return totalprice;
+    }
+
+    // double totalpriceAdd(){
+    //   double total=0;
+    //   for(var i=0;i<selectedIngredients.length;i++){
+    //     total+=listProductAdd[selectedIngredients[i]].price;
+    //   }
+    //   return total;
+    // }
     
     return Scaffold(
       body: SingleChildScrollView(
@@ -168,6 +191,7 @@ class _DetailpageState extends State<Detailpage> {
                               setState(() {
                                 if (value == true) {
                                   selectedIngredients.add(ingredeint.id);
+
                                   
                                 } else {
                                   selectedIngredients.remove(ingredeint.id);
@@ -220,36 +244,11 @@ class _DetailpageState extends State<Detailpage> {
               ),
             ),
             SizedBox(width: 10,),
-            addTocart(context, widget.productmodels)
+            addTocart(context, widget.productmodels,totalpriceAdd())
           ],
         ),
       )
     );
   }
-  Widget addTocart(BuildContext context,Productmodel product){
-    int selectIndex=product.selectedInex==-1? 0 :product.selectedInex;
-    double price=product.sizeOption[selectIndex]["price"];
-    int qty=product.counter;
-    return Container(
-              width: 280,
-              height: 60,
-              decoration: BoxDecoration(
-                color: Colors.green,
-                borderRadius: BorderRadius.circular(30),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 10,right: 50),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(width: 10,),
-                    Text("Add to cart -",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18,color: Colors.white),),
-                    Text("\$${price*qty}",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18,color: Colors.white),),
-                  ],
-                ),
-              ),
-            );
-
-    
-  }
+  
 }
